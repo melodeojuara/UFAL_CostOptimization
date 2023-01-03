@@ -5,28 +5,59 @@ This code is part of a spreadsheet that estimate the cost of eletric energy. Thi
 function myFunc(){ 
 
   var spreadsheet = SpreadsheetApp.getActive();
-  
-  /** Values of days and hours that the instalations will be utilized */
-  var d_h_evento = spreadsheet.getRange('D3').getValue()
-  var d_d_evento = spreadsheet.getRange('D4').getValue()
-  
-  inst_elet_campo_de_futebol = ["ILUMINAÇÃO ARQUIBANCADA 1","ILUMINAÇÃO ARQUIBANCADA 2","ILUMINAÇÃO ARQUIBANCADA 3","ILUMINAÇÃO ARQUIBANCADA 4","ILUMINAÇÃO ARQUIBANCADA 5","ILUMINAÇÃO VESTIARIO JOGADORES","ILUMINAÇÃO JARDIM 1","ILUMINAÇÃO JARDIM 2","ILUMINAÇÃO CIRCULAÇÃO 1","ILUMINAÇÃO CIRCULAÇÃO 2","ILUMINAÇÃO BANHEIRO/ATENDIMENTO MÉDICO","ILUMINAÇÃO SALAS DE FISIOTERAPIA","ILUMINAÇÃO AQUECI.MUSCULAR/DEPÓSITO DE MATERIAIS","ILUMINAÇÃO VESTIARIO JOGADORES","ILUMINAÇÃO JARDIM 1","ILUMINAÇÃO JARDIM 2","ILUMINAÇÃO ROUPARIA","ILUMINAÇÃO VESTIÁRIO ÁRBITOS MASC.","ILUMINAÇÃO VESTIÁRIO ÁRBITOS FEMI.","ILUMINAÇÃO CIRCULAÇÃO 1","ILUMINAÇÃO CIRCULAÇÃO 2","ILUMINAÇÃO RAMPA","TOMADAS VESTIÁRIO JOGADORES","TOMADAS CIRCULAÇÃO/BEBEDOUROS","TOMADAS BANHEIRO","TOMADAS ATENDIMENTO MÉDICO","TOMADAS SALAS DE FISIOTERAPIA","TOMADAS AQUECI.MUSCULAR/DEPÓSITODE MATERIAIS","TOMADAS VESTIÁRIO JOGADORES","TOMADAS ROUPARIA","ILUMINAÇÃO VESTIÁRIO ÁRBITOS MASC.","ILUMINAÇÃO VESTIÁRIO ÁRBITOS FEMI.","TOMADAS CIRCULAÇÃO","ILUMINAÇÃO ARQUIBANCADA 1","ILUMINAÇÃO ARQUIBANCADA 2","ILUMINAÇÃO ARQUIBANCADA 3","ILUMINAÇÃO ARQUIBANCADA 4","ILUMINAÇÃO ARQUIBANCADA 5","ILUMINAÇÃO CIRCULAÇÃO","ILUMINAÇÃO CIRCULAÇÃO","ILUMINAÇÃO CIRCULAÇÃO","ILUMINAÇÃO WC'S MASC./FEMI","ILUMINAÇÃO LANCHONETE/ADMINISTRAÇÃO/BILHETERIA","REFEITÓRIO/COZINHA","ILUMINAÇÃO LANCH/WC'S MASC./FEMIN/BWC MASC/FEM.","ILUMINAÇÃO DORMITÓRIO 1","ILUMINAÇÃO CIRCULAÇÃO 2","ILUMINAÇÃO CIRCULAÇÃO 3","ILUMINAÇÃO CIRCULAÇÃO 4","TOMADAS LACHONETE","TOMADAS WC MASC/FEMI","TOMADAS DORMITÓRIO","TOMADAS CIRCULAÇÃO/BILHETERIA","TOMADAS BILHETERIA","TOMADAS BILHETERIA/ADM","TOMADAS LANCHONETE","TOMADAS WC MASC/FEMI","TOMADAS CIRCULAÇÃO","TOMADAS REFEITÓRIO","TOMADAS COZINHA","TOMADAS BILHETERIA","TOMADAS BILHETERIA/ADM","TOMADAS LANCHONETE","QD ARQUIBANCADA DIREITA 01","QD ARQUIBANCADA DIREITA 02","QD 04 ARQUIBANCADA ESQUERDA","QD 02 ILUMINAÇÃO","QD 12 ILUMINAÇÃO","QD 11 ILUMINAÇÃO","ILUMINAÇÃO ESPORTIVA","QD ARQUIBANCADA DIREITA 02","QD 13 - TOMADAS","QD 03 - TOMADAS","ILUMINAÇÃO DO CAMPO 1","ILUMINAÇÃO DO CAMPO 2","ILUMINAÇÃO DO CAMPO 3","ILUMINAÇÃO DO CAMPO 4","ILUMINAÇÃO DO CAMPO 5","QD GERAL DE TOMADAS", "QD GERAL AR CONDICIONADOS"];
-  consumos = [3600, 3600, 3600, 2400, 2400, 768, 400, 400, 460, 420, 192, 256, 512, 768, 320, 400, 256, 256, 256, 480, 440, 240, 4100, 1600, 1200, 700, 1300, 800, 4000, 700, 1700, 700, 800, 3600, 3600, 3600, 2400, 2400, 1040, 960, 920, 520, 440, 480, 872, 912, 800, 760, 760, 600, 400, 1100, 900, 800, 700, 700, 200, 700, 600, 1100, 1200, 1200, 1200, 3408, 3416, 15600, 4360, 1784, 2320, 60000, 7900, 3000, 4800, 10000, 10000, 10000, 10000, 10000, 10000, 25400, 3600]
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Simulação'), true);
 
+  spreadsheet.getRange('B11:D92').clear({contentsOnly: true})
+  var bloco = spreadsheet.getRange('D2').getValue()
+
+  const values = spreadsheet.getRange('DATA_SUMMARY!').getValues();
+
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Simulação'), true);
   spreadsheet.getRange('B11').activate();
-  spreadsheet.getCurrentCell().offset(0, 0, inst_elet_campo_de_futebol.length, 1).insertCheckboxes();
   
-  for (var i = 0; i != inst_elet_campo_de_futebol.length; i++){
+  var circuito_campo_futebol = values[0].filter(i => i != '')
+  var potencia_campo_futebol = values[1].filter(i => i != '')
+  var circuito_pista_atletismo = values[2].filter(i => i != '')
+  var potencia_pista_atletismo = values[3].filter(i => i != '')
+  var circuito_psicina = values[4].filter(i => i != '')
+  var potencia_psicina = values[5].filter(i => i != '')
+  var circuito_quadra_poliesportiva = values[6].filter(i => i != '')
+  var potencia_quadra_poliesportiva = values[7].filter(i => i != '')
+  
+  if (bloco == 'Campo de Futebol' ) {
+    var circuito = circuito_campo_futebol
+    var potencia = potencia_campo_futebol
+  } else {
+    if (bloco == 'Pista de Atletismo' ) {
+      var circuito = circuito_pista_atletismo
+      var potencia = potencia_pista_atletismo
+    } else {
+      if (bloco == 'Piscina' ) {
+        var circuito = circuito_psicina
+        var potencia = potencia_psicina
+      } else {
+        if (bloco == 'Quadra Poliesportiva' ) {
+          var circuito = circuito_quadra_poliesportiva
+          var potencia = potencia_quadra_poliesportiva
+        }
+      }
+    }
+  }
+  
+  spreadsheet.getCurrentCell().offset(0, 0, circuito.length - 2, 1).insertCheckboxes();
+  spreadsheet.getRange('B11').activate();
+  
+  var  i = 1
+  
+  while ( i < circuito.length - 1){
 
     spreadsheet.getCurrentCell().offset(0,1).activate()
-    spreadsheet.getCurrentCell().setValue(inst_elet_campo_de_futebol[i])
+    spreadsheet.getCurrentCell().setValue(circuito[i])
     spreadsheet.getCurrentCell().offset(0,1).activate()
-
-    var consumo_evento = (consumos[i] * d_h_evento * d_d_evento) / 1000
-    spreadsheet.getCurrentCell().setValue(consumo_evento)
-    
+    spreadsheet.getCurrentCell().setValue(potencia[i])
+     
     spreadsheet.getCurrentCell().offset(1,-2).activate()
-
+    i = i + 1
   }
   spreadsheet.getRange('B6').activate();
 
