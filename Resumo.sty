@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Proposta de cálculo para a estimativa de custos do complexo esportivo da Universidade Federal de Alagoas}
+\author{Filipe de Araujo}
+\date{Maceió, Al. Janeiro de 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Resumo}
+    \text{A equação abaixo foi criada para realizar a estimativa dos custos do complexo esportivo da UFAL (CE-UFAL).
+    As variáveis foram escolhidas de forma a abrangir o máximo de informações disponíveis sobre as edificações.}
+    \text{Os custos fixos e variáveis foram abordados três aspectos do CE-UFAL: Depreciação, custos com contratos
+    de segurança e limpeza e custos com o consumo de energia elétrica.}
+    
+    \text{Desta forma, temos:}
+\begin{equation}
+     Ct = {
+     \left(\sum_{i=1}^{i} (Pi) * ( d * h )\right) + 
+     \left(\frac{(0,0012Ai * Vfl)+Vfs}{Td * Th} \right) + 
+     \left(\frac{\frac{ni^2 - xi^2}{n^2} * VCi}{Tm * Td * Th}\right)
+     }
+\end{equation}
+
+    \text{Onde:
+        \\Pi = Potência do circuito i selecionado
+		\\d = quantidade de duração do evento em duas
+		\\h = quantidade de horas diárias do evento 
+		\\Ai = Área em m² do prédio i selecionado
+		\\Vfl = Valor para o serviço de limpeza
+		\\Vfs = Valor para o serviço de segurança
+		\\ni = Vida útil esperada para o prédio i selecionado
+		\\xi = Idade do prédio i selecionado
+		\\VCi = Valor de construção para o prédio i selecionado
+		\\Tm = Total de meses em um ano 
+		\\Td = Total de dias em um mês
+		\\Th = Total de horas em um dia }
+
+\end{document}
