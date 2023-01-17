@@ -32,7 +32,8 @@ function auto_load() {
   i_expectativa_de_vida = [30,20,25,30]
   
   x = Depreciacao_Kuentle(i_expectativa_de_vida,i_idade,i_custo_de_construcao,ordem.get(e_construcao))
-  y = (x / (12*30*24))
-  e_custo_de_manutencao.setValue(y * (e_duracao_horas * e_duracao_dias))
+  y = Depreciacao_Kuentle(i_expectativa_de_vida,i_idade - 1,i_custo_de_construcao,ordem.get(e_construcao))
+  var z = (y - x)/(12*30*24)
+  e_custo_de_manutencao.setValue(z * (e_duracao_horas * e_duracao_dias))
 
 }
