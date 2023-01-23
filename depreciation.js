@@ -1,8 +1,3 @@
-function Depreciacao_Kuentle(a,b,c,d){
-  return ((a[d]^2) - (b^2)) / ((a[d]^2)) * c[d]
-
-}
-
 function auto_load() {
   /** Variáveis necessárias para calculo */
   const hoje = new Date()
@@ -27,13 +22,16 @@ function auto_load() {
   /** As listas a seguir contem dados refentes ao complexo esportivo sobre:
    * Custo de construção e data de construção.
    * Os dados SEMPRE seguem a ordem que consta no dicionário. */
-
+  
   i_custo_de_construcao = [9178027.29, 13873321.26, 1437461.37, 808536.15]
   i_expectativa_de_vida = [30,20,25,30]
+  
+  function Depreciacao_Kuentle(a,b,c,d){
+    return ((a[d]^2) - (b^2)) / ((a[d]^2)) * c[d]
+  }
   
   x = Depreciacao_Kuentle(i_expectativa_de_vida,i_idade,i_custo_de_construcao,ordem.get(e_construcao))
   y = Depreciacao_Kuentle(i_expectativa_de_vida,i_idade - 1,i_custo_de_construcao,ordem.get(e_construcao))
   var z = (y - x)/(12*30*24)
   e_custo_de_manutencao.setValue(z * (e_duracao_horas * e_duracao_dias))
-
 }
