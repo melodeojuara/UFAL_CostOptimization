@@ -1,4 +1,4 @@
-function myFunction() {
+function ajuda() {
   var texto1 = 'Bem vindo ao gerador de cartas!\nAs próximas mensagens contém orientações de como utilizar o sistema, a ordem dos botões e células que não devem ser alteradas.\nDeseja continuar? '
   var texto2 = "Em primeiro momento deve-se selecionar prédio na célula 'D2'\n Depois disso, defina a quantidade de horas diárias e a duração em dias do evento nas células 'D3' e 'D4'"
   var texto3 = "Selecione o botão 'Inserir' para trazer a lista das instalações elétricas disponíveis na unidade com as potências relacionadas.\n E nas caixas de seleção, marque as instalações que serão utilizadas durante o evento."
