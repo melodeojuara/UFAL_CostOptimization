@@ -3,17 +3,25 @@ This code is part of a spreadsheet that estimate the cost of eletric energy. Thi
 */
 
 function myFunc(){ 
-
   var spreadsheet = SpreadsheetApp.getActive();
   spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Simulação'), true);
+  spreadsheet.getRange('B12:D93').clear({contentsOnly: true})
+  
+  var predio = spreadsheet.getSheetByName('Simulação').getRange('D2').getValue()
+  var hora = spreadsheet.getSheetByName('Simulação').getRange('D3').getValue()
+  var dias =  spreadsheet.getSheetByName('Simulação').getRange('D4').getValue()
 
-  spreadsheet.getRange('B11:D92').clear({contentsOnly: true})
-  var bloco = spreadsheet.getRange('D2').getValue()
+  if ((predio&&hora&&dias) == ''){
+    texto = 'Por favor, confira as informações: “Prédio”, “Duração do evento(horas)”, “Duração do evento(dias)” .Certifique-se de que     estejam preenchidas corretamente.'
+    SpreadsheetApp.getUi().alert(texto,SpreadsheetApp.getUi().ButtonSet.OK_CANCEL)
+  }
 
-  const values = spreadsheet.getRange('DATA_SUMMARY!').getValues();
+  const ss = SpreadsheetApp.getActiveSpreadsheet(); 
+  const sheet = ss.getSheetByName('DATA_SUMMARY')
+  const values = sheet.getDataRange().getValues();
 
   spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Simulação'), true);
-  spreadsheet.getRange('B11').activate();
+  spreadsheet.getRange('B12').activate();
   
   var circuito_campo_futebol = values[0].filter(i => i != '')
   var potencia_campo_futebol = values[1].filter(i => i != '')
@@ -59,6 +67,5 @@ function myFunc(){
     spreadsheet.getCurrentCell().offset(1,-2).activate()
     i = i + 1
   }
-  spreadsheet.getRange('B6').activate();
-
+  depreciation()
 };
