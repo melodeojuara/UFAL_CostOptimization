@@ -1,12 +1,30 @@
 function cleaning_and_security(){
 
+  nome_predio = 'D8'
+  duracao_horas = 'D9'
+  duracao_dias = 'D10'
+  
+  custo_manutencao = 'D14'
+  custo_energia = 'D15'
+  custo_higienizacao = 'D16'
+  custo_seguranca = 'D17'
+  custo_total_evento = 'D18'
+
+  dados = 'B21'
+
   var spreadsheet = SpreadsheetApp.getActive()
 
-  var predio = spreadsheet.getSheetByName('Simulação').getRange('D2').getValue()
-  var hora = spreadsheet.getSheetByName('Simulação').getRange('D3').getValue()
-  var dias =  spreadsheet.getSheetByName('Simulação').getRange('D4').getValue()
-  var custos_de_limpeza = spreadsheet.getSheetByName('Simulação').getRange('G4')
-  var custos_de_seguranca = spreadsheet.getSheetByName('Simulação').getRange('G5')
+  var predio = spreadsheet.getSheetByName('Simulação').getRange(nome_predio).getValue()
+  var hora = spreadsheet.getSheetByName('Simulação').getRange(duracao_horas).getValue()
+  var dias =  spreadsheet.getSheetByName('Simulação').getRange(duracao_dias).getValue()
+  var custos_de_limpeza = spreadsheet.getSheetByName('Simulação').getRange(custo_higienizacao)
+  var custos_de_seguranca = spreadsheet.getSheetByName('Simulação').getRange(custo_seguranca)
+
+    if ((predio&&hora&&dias) == ''){
+    texto = 'Certifique-se de que os campos estão preenchidos corretamente:\n 1 - Prédio\n 2 - Duração do evento (horas)\n 3 - Duração do evento (dias)'
+    SpreadsheetApp.getUi().alert(texto,SpreadsheetApp.getUi().ButtonSet.OK_CANCEL)
+    return
+  }
 
   vh_limpeza = (3771.05 / (30 * 24)) * (hora * dias)
   vh_seguranca = (19084.60 / (30 * 24)) * (hora * dias)
@@ -32,13 +50,13 @@ function depreciation() {
   var i_idade = hoje.getFullYear() - 2019
 
   /** Informações sobre a construção */
-  var spreadsheet = SpreaadsheetApp.getActive()
-  var e_custo_de_manutencao = spreadsheet.getRange('G2')
-  var predio = spreadsheet.getRange('D2').getValue()
+  var spreadsheet = SpreadsheetApp.getActive()
+  var e_custo_de_manutencao = spreadsheet.getRange(custo_manutencao)
+  var predio = spreadsheet.getRange(nome_predio).getValue()
 
   /** Informações sobre o evento */
-  var e_duracao_horas = spreadsheet.getRange('D3').getValue()
-  var e_duracao_dias = spreadsheet.getRange('D4').getValue()
+  var e_duracao_horas = spreadsheet.getRange(duracao_horas).getValue()
+  var e_duracao_dias = spreadsheet.getRange(duracao_dias).getValue()
 
   /** Definição de dicionário para chamar o índice nas listas */
   var ordem = new Map()
@@ -70,4 +88,3 @@ function depreciation() {
   cleaning_and_security()
 
 }
-
