@@ -1,17 +1,5 @@
 function cleaning_and_security(){
 
-  nome_predio = 'D8'
-  duracao_horas = 'D9'
-  duracao_dias = 'D10'
-  
-  custo_manutencao = 'D14'
-  custo_energia = 'D15'
-  custo_higienizacao = 'D16'
-  custo_seguranca = 'D17'
-  custo_total_evento = 'D18'
-
-  dados = 'B21'
-
   var spreadsheet = SpreadsheetApp.getActive()
 
   var predio = spreadsheet.getSheetByName('Simulação').getRange(nome_predio).getValue()
@@ -19,12 +7,6 @@ function cleaning_and_security(){
   var dias =  spreadsheet.getSheetByName('Simulação').getRange(duracao_dias).getValue()
   var custos_de_limpeza = spreadsheet.getSheetByName('Simulação').getRange(custo_higienizacao)
   var custos_de_seguranca = spreadsheet.getSheetByName('Simulação').getRange(custo_seguranca)
-
-    if ((predio&&hora&&dias) == ''){
-    texto = 'Certifique-se de que os campos estão preenchidos corretamente:\n 1 - Prédio\n 2 - Duração do evento (horas)\n 3 - Duração do evento (dias)'
-    SpreadsheetApp.getUi().alert(texto,SpreadsheetApp.getUi().ButtonSet.OK_CANCEL)
-    return
-  }
 
   vh_limpeza = (3771.05 / (30 * 24)) * (hora * dias)
   vh_seguranca = (19084.60 / (30 * 24)) * (hora * dias)
@@ -45,6 +27,19 @@ function cleaning_and_security(){
 }
 
 function depreciation() {
+
+  nome_predio = 'D8'
+  duracao_horas = 'D9'
+  duracao_dias = 'D10'
+  
+  custo_manutencao = 'D14'
+  custo_energia = 'D15'
+  custo_higienizacao = 'D16'
+  custo_seguranca = 'D17'
+  custo_total_evento = 'D18'
+
+  dados = 'B21'
+
   /** Variáveis necessárias para calculo */
   const hoje = new Date()
   var i_idade = hoje.getFullYear() - 2019
